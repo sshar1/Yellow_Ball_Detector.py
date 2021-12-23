@@ -2,14 +2,20 @@ import numpy as np
 import cv2
 
 def editImage(image, lower_values, upper_values):
+    
+    # Resizing
     global mask_cnts, original_resize, mask
     resize_image = cv2.imread(image)
     LENGTH, WIDTH = 640, 480
     resize_image = cv2.resize(resize_image, (LENGTH, WIDTH))
     original_resize = resize_image
+    
+    # Blur, erode, dilate
     resize_image = cv2.GaussianBlur(resize_image, (7, 7), None)
     resize_image = cv2.erode(resize_image, None, iterations = 1)
     resize_image = cv2.dilate(resize_image, None, iterations = 1)
+    
+    # Yellow mask
     HSV = cv2.cvtColor(resize_image, cv2.COLOR_BGR2HSV)
     lower = np.array(lower_values)
     upper = np.array(upper_values)
@@ -33,6 +39,7 @@ def isCircle(contours):
         if i == 0:
             i = 1
             continue
+            
         # Approximate shape
         approx = cv2.approxPolyDP(contour, 0.01 * cv2.arcLength(contour, True), True)
         
