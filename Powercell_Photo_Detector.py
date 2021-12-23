@@ -68,7 +68,7 @@ def drawRectangle(contours, image):
 
 
 #Draw the rectangles
-editImage("powercelltest.jpg", [22, 93, 0], [45, 255, 255])
+editImage("/Images/frcpowercells.jpg", [22, 93, 0], [45, 255, 255])
 drawRectangle(mask_cnts, original_resize)
             
 cv2.imshow("masked", mask)
