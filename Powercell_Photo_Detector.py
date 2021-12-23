@@ -3,8 +3,9 @@ import cv2
 
 def editImage(image, lower_values, upper_values):
     
-    # Resizing
     global mask_cnts, original_resize, mask
+    
+    # Resizing
     resize_image = cv2.imread(image)
     LENGTH, WIDTH = 640, 480
     resize_image = cv2.resize(resize_image, (LENGTH, WIDTH))
@@ -21,6 +22,7 @@ def editImage(image, lower_values, upper_values):
     upper = np.array(upper_values)
     mask = cv2.inRange(HSV, lower, upper)
     cv2.bitwise_and(HSV, HSV, mask = mask)
+    
     mask_cnts = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     
     if len(mask_cnts) == 2:
